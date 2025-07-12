@@ -17,10 +17,10 @@ const isValidPassword = (password) => {
 };
 
 export const signup = async (req, res) => {
-    const { email, username, password } = req.body;
+    const { email, username, role, password } = req.body;
 
     // Validation des champs obligatoires
-    if (!username || !email || !password) {
+    if (!username || !email || !role || !password) {
         return res.status(400).json({ 
             message: 'Tous les champs sont obligatoires',
             error: 'MISSING_FIELDS'
@@ -84,8 +84,8 @@ export const signup = async (req, res) => {
 
         // Insertion du nouvel utilisateur
         const [result] = await connectionDB.query(
-            'INSERT INTO users (username, email, password) VALUES (?, ?, ?)', 
-            [username, email.toLowerCase(), hashedPassword]
+            'INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)', 
+            [username, email.toLowerCase(),  hashedPassword, role]
         );
 
         // Réponse de succès (sans renvoyer d'informations sensibles)
@@ -136,7 +136,7 @@ export const signin = async (req, res) => {
     try {
         // Recherche de l'utilisateur par email
         const [users] = await connectionDB.query(
-            'SELECT id, username, email, password FROM users WHERE email = ?', 
+            'SELECT id, username, email, password,role FROM users WHERE email = ?', 
             [email.toLowerCase()]
         );
 
@@ -186,6 +186,12 @@ export const signin = async (req, res) => {
       success: true,
       message: "Connexion réussie !",
       token,
+      user: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        role: user.role,
+      },
     });
 
 
