@@ -18,6 +18,10 @@ import { HomeDriverPage } from "./pages/drivers/HomeDriverPage";
 
 // Import du composant de protection des routes
 import PrivateRoute from "./lib/PrivateRoute";
+import { NewCars } from "./pages/drivers/NewCars";
+import { MyCars } from "./pages/drivers/MyCars";
+import { MyBookingClient } from "./pages/clients/MyBookingClient";
+import { DoBookingClient } from "./pages/clients/doBookingClient";
 
 /**
  * Composant App - Composant racine de l'application
@@ -45,9 +49,13 @@ function App() {
           <Route element={<PrivateRoute />}>
             {/* Espace client - Accessible uniquement aux utilisateurs connectés */}
             <Route path="/client" element={<HomeClientPage />} />
+            <Route path="/client/do-booking" element={<DoBookingClient />} />
+            <Route path="/client/my-bookings" element={<MyBookingClient />} />
             
             {/* Espace conducteur - Accessible uniquement aux utilisateurs connectés */}
             <Route path="/driver" element={<HomeDriverPage />} />
+            <Route path="/driver/new-cars" element={<NewCars />} />
+            <Route path="/driver/my-cars" element={<MyCars />} />
           </Route>
         </Route>
 
