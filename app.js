@@ -29,6 +29,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/cars", carsRoutes)
 app.use("/api/bookings", bookingRoutes)
 
+
+
 const PORT = process.env.PORT || 9000;
 
 // Démarrage du serveur
